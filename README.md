@@ -127,3 +127,14 @@ Passed: 7
 Failed: 0
 
 [Download All 7 Test Reports](reports/OrangeHRM_Report.zip)
+
+
+### Stability Test Results
+
+- Total automation scenarios: 7
+- Stability executions: 14
+- Passed: 14
+- Failed: 0
+- Pass rate: 100%
+- Browser: Chromium
+- Execution: Sequential, without retries
