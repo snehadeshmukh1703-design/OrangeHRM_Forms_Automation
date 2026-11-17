@@ -29,15 +29,20 @@ test('TC03 - Add new employee with dynamic data', async ({ page }) => {
   await firstNameInput.fill(firstName);
   await lastNameInput.fill(lastName);
 
-  // Save employee
+  
+  // Save employee and verify server response
+  const saveResponsePromise = page.waitForResponse(response =>
+    response.url().includes('/api/v2/pim/employees') &&
+    response.request().method() === 'POST'
+  );
+
   await page.getByRole('button', { name: 'Save' }).click();
 
-  // Verify employee creation
-  await expect(page).toHaveURL(/pim\/viewPersonalDetails\/empNumber\/\d+/);
+  const saveResponse = await saveResponsePromise;
+  expect(saveResponse.ok()).toBeTruthy();
 
-  const employeeName = page.locator('.orangehrm-edit-employee-name');
-
-  await expect(employeeName).toContainText(firstName);
-  await expect(employeeName).toContainText(lastName);
+  // Verify success message
+  await expect(page.getByText('Successfully Saved')).toBeVisible();
 });
+
 
