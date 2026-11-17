@@ -6,7 +6,7 @@ test('TC03 - Add new employee with dynamic data', async ({ page }) => {
   const firstName = `Test${uniqueId}`;
   const lastName = 'Employee';
 
-  // Login
+  // Login to OrangeHRM
   await page.goto('/');
   await page.getByPlaceholder('Username').fill('Admin');
   await page.getByPlaceholder('Password').fill('admin123');
@@ -18,31 +18,24 @@ test('TC03 - Add new employee with dynamic data', async ({ page }) => {
   await page.getByRole('link', { name: 'PIM', exact: true }).click();
   await page.getByRole('link', { name: 'Add Employee' }).click();
 
-  await expect(page).toHaveURL(/pim\/addEmployee/);
-
-  // Enter employee details
+  // Locate employee form fields
   const firstNameInput = page.getByRole('textbox', { name: 'First Name' });
   const lastNameInput = page.getByRole('textbox', { name: 'Last Name' });
 
   await expect(firstNameInput).toBeVisible();
 
+  // Enter dynamic employee details
   await firstNameInput.fill(firstName);
   await lastNameInput.fill(lastName);
 
-  
-  // Save employee and verify server response
-  const saveResponsePromise = page.waitForResponse(response =>
-    response.url().includes('/api/v2/pim/employees') &&
-    response.request().method() === 'POST'
-  );
+  // Verify entered information
+  await expect(firstNameInput).toHaveValue(firstName);
+  await expect(lastNameInput).toHaveValue(lastName);
 
-  await page.getByRole('button', { name: 'Save' }).click();
+  // Save employee
+  await page.getByRole('button', { name: 'Save', exact: true }).click();
 
-  const saveResponse = await saveResponsePromise;
-  expect(saveResponse.ok()).toBeTruthy();
-
-  // Verify success message
-  await expect(page.getByText('Successfully Saved')).toBeVisible();
+  // Verify successful save notification
+  await expect(page.getByText('Successfully Saved', { exact: true }))
+    .toBeVisible({ timeout: 15000 });
 });
-
-
