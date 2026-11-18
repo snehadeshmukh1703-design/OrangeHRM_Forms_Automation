@@ -16,6 +16,7 @@ The project focuses on employee management, form validation, user interactions, 
 - Visual Studio Code
 - Git & GitHub
 - Chromium Browser
+- Jenkins (CI Pipeline)
 
 ## Automated Test Cases
 
@@ -49,6 +50,7 @@ The project focuses on employee management, form validation, user interactions, 
 - `playwright.config.js` — Test configuration
 - `package.json` — Project dependencies
 - `.gitignore` — Files excluded from version control
+- `Jenkinsfile` — Jenkins CI pipeline configuration
 
 ## Installation and Setup
 
