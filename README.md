@@ -107,9 +107,23 @@ The test suite successfully completed all seven planned scenarios during local e
 - The public demo may occasionally experience server delays or unavailable features.
 - Test execution reports are excluded from Git using `.gitignore`.
 
-## Future Enhancements
+## Jenkins CI Integration
 
-- Jenkins CI/CD integration
+Integrated Playwright automation tests with Jenkins using a Jenkinsfile.
+
+- Configured a Jenkins pipeline for automated test execution.
+- Installed project dependencies using `npm ci`.
+- Installed the Chromium browser for Playwright.
+- Executed Playwright tests sequentially with one worker.
+- Archived Playwright HTML reports and test artifacts.
+- Verified successful test execution through Jenkins build results.
+
+### Jenkins Pipeline Stages
+1. Install Dependencies
+2. Install Chromium
+3. Run Playwright Tests
+
+## Future Enhancements
 - Reusable authentication fixtures
 - Cross-browser test execution
 - Improved test data management
